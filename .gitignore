@@ -50,3 +50,10 @@ Thumbs.db
 
 
 /.forge/
+
+# Built panel
+static/panel/build/
+
+# Local tool folders
+.vercel/
+.playwright-mcp/

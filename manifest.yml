@@ -1,21 +1,117 @@
 modules:
+  # The panel on every Jira ticket.
   jira:issuePanel:
-    - key: due-date-check-hello-world-panel
+    - key: due-date-check-panel
       resource: main
       resolver:
         function: resolver
       viewportSize: medium
       title: Due Date Check
-      icon: https://developer.atlassian.com/platform/forge/images/issue-panel-icon.svg
+      icon: https://due-date-check.vercel.app/icon.svg
+
+  # The page in each project's sidebar.
+  jira:projectPage:
+    - key: due-date-check-project
+      resource: main
+      resolver:
+        function: resolver
+      title: Due Date Check
+      icon: https://due-date-check.vercel.app/icon.svg
+
+  # The Rovo agent and the two actions it can call.
+  rovo:agent:
+    - key: due-date-coach
+      name: Due Date Coach
+      description: Tells you when Jira work will really finish, based on your team's own history, and which dates are at risk.
+      prompt: >
+        You are Due Date Coach, a calm and direct planning assistant inside Jira.
+        You help people set due dates they can keep, using only their team's own
+        finished work as evidence.
+
+        Jobs:
+        1. Check a ticket's due date, or a date the user proposes ("can we ship
+        REQ-12 by Friday?"). Use the check-due-date action. Convert any date the
+        user gives (like "Friday" or "next Tuesday") to YYYY-MM-DD using today's
+        date before calling it.
+        2. Explain why a date is at risk. Use check-due-date and walk through the
+        closest past tickets it returns.
+        3. Report on a project: how often it keeps its dates, which kinds of work
+        slip, and which open tickets are at risk. Use the project-due-date-health
+        action.
+
+        Rules:
+        - Only state numbers the actions return. Never invent tickets, dates or
+        percentages.
+        - Always name the ticket keys you are talking about so people can check.
+        - Lead with the answer in one sentence (on track, tight or likely to slip),
+        then the realistic date, then the reason.
+        - When a date is likely to slip, suggest the realistic date and say what
+        would help, such as starting earlier or splitting the work. Do not change
+        any ticket yourself.
+        - If the user is on a Jira ticket or project page and does not name one, use
+        the one they are looking at.
+        - If an action says there is not enough history, say so plainly.
+      conversationStarters:
+        - Will this ticket make its due date?
+        - Can we finish this by Friday?
+        - Which of our open work is likely to slip?
+        - Which kind of work do we underestimate most?
+      actions:
+        - check-due-date
+        - project-due-date-health
+
+  action:
+    - key: check-due-date
+      name: Check a due date
+      function: checkDueDateFn
+      actionVerb: GET
+      description: >
+        Estimates when a Jira ticket will realistically finish, from the team's own
+        finished tickets, and the chance it meets its due date or a proposed date.
+        Returns the realistic date, a safe date, the chance, and the closest past
+        tickets used as evidence.
+      inputs:
+        issueKey:
+          title: Ticket key
+          type: string
+          required: false
+          description: The Jira ticket key, for example REQ-12. Leave empty to use the ticket the user is viewing.
+        proposedDate:
+          title: Proposed date
+          type: string
+          required: false
+          description: A date to test instead of the ticket's due date, in YYYY-MM-DD form.
+    - key: project-due-date-health
+      name: Project due date health
+      function: projectHealthFn
+      actionVerb: GET
+      description: >
+        Reports how often a Jira project meets its due dates, which kinds of work
+        slip and by how much, and which open tickets are tight or likely to slip.
+      inputs:
+        projectKey:
+          title: Project key
+          type: string
+          required: false
+          description: The Jira project key, for example REQ. Leave empty to use the project the user is viewing.
+
   function:
     - key: resolver
       handler: index.handler
+    - key: checkDueDateFn
+      handler: index.checkDueDate
+    - key: projectHealthFn
+      handler: index.projectHealth
+
 resources:
   - key: main
-    path: static/hello-world/build
+    path: static/panel/build
+
 permissions:
   scopes:
     - read:jira-work
+    - write:jira-work
+
 app:
   runtime:
     name: nodejs24.x

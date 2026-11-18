@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Due Date Check: due dates your team can keep</title>
+<meta name="description" content="A Jira app that shows when work will really finish, from your team's own history. One look tells you if a due date will hold, and the realistic date if it won't.">
+<meta property="og:title" content="Due Date Check: due dates your team can keep">
+<meta property="og:description" content="When someone sets a due date in Jira, see the realistic one from your team's own history.">
+<meta property="og:image" content="https://due-date-check.vercel.app/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="icon.svg" alt="">Due Date Check</a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#coach">Rovo coach</a>
+      <a href="#compare">Compare</a>
+      <a href="how-it-works.html">The maths</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="#install">Get it for Jira</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">A Jira app for business teams</span>
+      <h1>Due dates your team can <em>actually keep.</em></h1>
+      <p class="lede">When someone sets a due date in Jira, Due Date Check shows the realistic one, worked out from how long the same kind of work really took your team. No estimates, no story points, no guesswork.</p>
+      <div class="cta">
+        <a class="btn" href="#install">Get it for Jira, free</a>
+        <a class="btn ghost" href="#how">See how it works</a>
+      </div>
+      <p class="small" style="margin-top:18px">Runs on Atlassian. Your tickets never leave Jira.</p>
+    </div>
+
+    <div class="panel" aria-label="Example: the Due Date Check panel on a Jira ticket">
+      <div class="ticket"><span>REQ-201 · Legal</span><span>Due Date Check</span></div>
+      <div class="title">Review Globex contract</div>
+      <div class="verdict">
+        <span class="tag red">Likely to slip</span>
+        <span style="color:var(--ink-2)">Due Fri 20 Nov · realistic Thu 26 Nov</span>
+      </div>
+      <div class="stats">
+        <div><b style="color:var(--red)">0%</b><span>of similar work finished in time</span></div>
+        <div><b>6 days</b><span>7 in 10 similar tickets finished within this</span></div>
+        <div><b>64%</b><span>of this project's due dates were met (122 of 190)</span></div>
+      </div>
+      <span class="use">Use the realistic date (Thu 26 Nov)</span>
+      <div class="evidence">
+        <div class="small" style="padding-bottom:4px">Based on 30 finished similar tickets · high confidence</div>
+        <div><span class="k">REQ-156</span><span class="s">Review Globex contract</span><span>4 working days</span></div>
+        <div><span class="k">REQ-136</span><span class="s">Review Globex contract</span><span class="late">5 working days · late</span></div>
+        <div><span class="k">REQ-188</span><span class="s">Review Vandelay contract</span><span>5 working days</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Every team promises dates. <em>Most miss them.</em></h2>
+    <p class="sub">Legal, design, marketing, events, HR and ops teams run on due dates, in Lagos, Lisbon and Lima alike. The date usually comes from a gut feeling on the day the ticket is made. Nobody checks it against what happened last time, so the same work slips the same way, month after month.</p>
+    <div class="band">
+      <div><b>64%</b><span>of due dates met in our sample workspace. A third of promises broken, and nobody saw it coming.</span></div>
+      <div><b>35%</b><span>on-time rate for legal reviews: promised in about 4 working days, they take about 5.</span></div>
+      <div><b>1 look</b><span>at the ticket shows whether its date will hold, and what date would.</span></div>
+    </div>
+    <p class="small" style="margin-top:22px">Figures from the 190 finished requests in our demo workspace, the same numbers the app shows.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="sub">Three things happen the moment you open a ticket. Nothing to set up, nothing to train.</p>
+    <div class="grid3">
+      <div class="card">
+        <div class="num">1</div>
+        <h3>It finds the same work</h3>
+        <p>It reads your project's most recent finished tickets and picks the closest matches: same type, same component, similar words in the title.</p>
+      </div>
+      <div class="card">
+        <div class="num">2</div>
+        <h3>It measures what really happened</h3>
+        <p>How many working days those tickets took from start to done, and how often they met their own due date. If this ticket is already under way, only tickets that ran at least as long count.</p>
+      </div>
+      <div class="card">
+        <div class="num">3</div>
+        <h3>It tells you, with proof</h3>
+        <p>On track, tight or likely to slip, the date 7 in 10 similar tickets made, and the past tickets behind it, one click away. One button sets the realistic date, with Undo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap split">
+    <div>
+      <h2>See which work <em>always slips.</em></h2>
+      <p class="sub" style="margin-bottom:24px">The project page adds it all up: how often the team keeps its dates, month by month, which kinds of work are underestimated, and which open tickets are at risk right now, worst first.</p>
+      <p class="small">Every number links back to real tickets, so a team lead can check it before acting on it.</p>
+    </div>
+    <div class="card">
+      <div class="small" style="margin-bottom:14px; font-weight:600">Which work slips: due dates met, per kind of work</div>
+      <div class="bars">
+        <div class="bar"><b>Legal</b><div class="track"><div class="fill" style="width:35%;background:var(--red)"></div></div><span class="note">35% · promised ~4d, takes ~5d</span></div>
+        <div class="bar"><b>Design</b><div class="track"><div class="fill" style="width:42%;background:#e2a03f"></div></div><span class="note">42% on time</span></div>
+        <div class="bar"><b>Web</b><div class="track"><div class="fill" style="width:63%;background:#e2a03f"></div></div><span class="note">63% on time</span></div>
+        <div class="bar"><b>Events</b><div class="track"><div class="fill" style="width:90%;background:var(--green)"></div></div><span class="note">90% on time</span></div>
+        <div class="bar"><b>Content</b><div class="track"><div class="fill" style="width:98%;background:var(--green)"></div></div><span class="note">98% on time</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="coach">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">Rovo agent</span>
+      <h2>Just ask: <em>"can we do this by Friday?"</em></h2>
+      <p class="sub">Due Date Coach lives in Rovo chat. Ask in plain words, on any ticket or project. It turns "Friday" or "4 December" into a real date, runs the same check, and answers with the ticket keys it used.</p>
+      <p class="small">It only states numbers the app works out from your history. It never invents tickets and never changes one by itself.</p>
+    </div>
+    <div class="chat">
+      <div class="msg me">Will REQ-191 make its due date?</div>
+      <div class="msg bot"><div class="who">Due Date Coach</div>Likely to slip. It's due 19 Nov, but the realistic date is <b>24 Nov</b>: only 3% of 30 similar tickets finished that fast. Similar legal reviews such as REQ-189 and REQ-125 took about 6 working days. Starting earlier or splitting the review would help.</div>
+      <div class="msg me">Could we get it done by 4 December instead?</div>
+      <div class="msg bot"><div class="who">Due Date Coach</div>Yes. 4 December (2026-12-04) is on track for REQ-191.</div>
+      <p class="small" style="margin:4px 0 0">Shortened from a real conversation on our demo workspace.</p>
+    </div>
+  </div>
+</section>
+
+<section id="compare" class="alt">
+  <div class="wrap">
+    <h2>Where we stand</h2>
+    <p class="sub">Forecasting tools for Jira exist, and they're good at what they do: telling engineering leads when a whole backlog will ship. Due Date Check answers a smaller, more common question for everyone else.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Due Date Check</th><th>Backlog forecasting apps<br><span style="text-transform:none;font-weight:500">Stattora, Agile Monte Carlo Charts, ActionableAgile, Empirical Forecasting</span></th><th>Plain Jira</th></tr></thead>
+        <tbody>
+          <tr><td>The question it answers</td><td class="us">Will <i>this ticket</i> meet <i>its</i> date?</td><td>When will this backlog or epic be done?</td><td>None: the date is whatever was typed</td></tr>
+          <tr><td>Built for</td><td class="us">Business teams: legal, design, marketing, events, ops</td><td>Agile software teams</td><td>Everyone</td></tr>
+          <tr><td>Where you see it</td><td class="us">On the ticket, the moment the date is set</td><td>Dashboards and reports you go and open</td><td>n/a</td></tr>
+          <tr><td>Needs sprints, story points or setup</td><td class="us"><span class="yes">No</span></td><td>Throughput history and board setup</td><td>n/a</td></tr>
+          <tr><td>Shows the past tickets behind each number</td><td class="us"><span class="yes">Yes</span>, linked</td><td>Charts of aggregates</td><td class="no">No</td></tr>
+          <tr><td>Ask in plain words (Rovo)</td><td class="us"><span class="yes">Yes</span>, Due Date Coach</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Data stays inside Atlassian</td><td class="us"><span class="yes">Yes</span>, Runs on Atlassian</td><td>Varies by app</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap narrow">
+    <h2>Questions</h2>
+    <details><summary>Does it use AI to guess dates?</summary><p>No. The dates come from plain counting over your own finished tickets: how long similar work took and how often it met its due date. You can check every number by clicking the tickets behind it. Rovo is only used to let you ask in plain words; it repeats what the app worked out.</p></details>
+    <details><summary>How much history does it need?</summary><p>At least 3 finished tickets in the project, and it gets sharper with more. It reads the project's 500 most recent finished tickets, so it stays current as the team changes. With fewer than 5 close matches it widens to the same ticket type, then the whole project, and says so.</p></details>
+    <details><summary>Does my data leave Jira?</summary><p>No. Due Date Check runs on Atlassian's own Forge platform with no outside servers, and it reads tickets as the person viewing them, so nobody sees anything they couldn't already see. See <a href="privacy.html">Privacy</a>.</p></details>
+    <details><summary>Will it change my tickets?</summary><p>Only when you press "Use the realistic date", confirm it, and even then you can Undo. The Rovo agent never changes tickets.</p></details>
+    <details><summary>What counts as a working day?</summary><p>Monday to Friday. Start is when the ticket was created; done is when it was resolved.</p></details>
+    <details><summary>Which Jira does it work with?</summary><p>Jira Cloud: business projects and software projects alike. It needs only the standard Due date field.</p></details>
+    <details><summary>What does it cost?</summary><p>It's free while in beta.</p></details>
+  </div>
+</section>
+
+<section id="install" class="alt">
+  <div class="wrap narrow" style="text-align:center">
+    <img src="icon.svg" alt="" width="56" height="56">
+    <h2 style="margin-top:14px">Stop promising dates <em>you can't keep.</em></h2>
+    <p class="sub" style="margin:0 auto 28px">Install on your Jira Cloud site, open any ticket with a due date, and the check is there.</p>
+    <div class="cta" style="justify-content:center">
+      <a class="btn" href="mailto:vikrams.builds@gmail.com?subject=Due%20Date%20Check%20install">Request the install link</a>
+      <a class="btn ghost" href="how-it-works.html">Read how the maths works</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="/"><img src="icon.svg" alt="">Due Date Check</a>
+    <nav>
+      <a href="how-it-works.html">How it works</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
