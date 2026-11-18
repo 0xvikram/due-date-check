@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · Due Date Check</title>
+<meta name="description" content="Exactly how Due Date Check works out a realistic due date from your team's finished Jira tickets.">
+<meta property="og:title" content="Due Date Check: due dates your team can keep">
+<meta property="og:description" content="When someone sets a due date in Jira, see the realistic one from your team's own history.">
+<meta property="og:image" content="https://due-date-check.vercel.app/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="/"><img src="icon.svg" alt="">Due Date Check</a>
+    <nav>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#coach">Rovo coach</a>
+      <a href="index.html#compare">Compare</a>
+      <a href="how-it-works.html">The maths</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="index.html#install">Get it for Jira</a>
+  </div>
+</header>
+<main class="doc"><div class="wrap narrow">
+
+<span class="eyebrow">How it works</span>
+<h1>The maths, in <em>plain words.</em></h1>
+<p>Due Date Check uses no machine learning and no estimates. It counts what your team already did. Every step below is the same code that runs inside Jira.</p>
+
+<h2>1. Read the history</h2>
+<p>When you open a ticket, the app reads the project's 500 most recent finished tickets (anything with a resolution date), as you, so it only sees tickets you can see.</p>
+
+<h2>2. Find similar work</h2>
+<p>Each finished ticket gets a similarity score against the one you are looking at:</p>
+<ul>
+  <li>same work type: <b>+3</b></li>
+  <li>each shared component: <b>+2</b></li>
+  <li>overlap of the words in the title: up to <b>+4</b></li>
+  <li>each shared label: <b>+1</b></li>
+</ul>
+<p>Tickets scoring 4 or more are "similar". It keeps the 30 closest. If fewer than 5 are similar, it falls back to tickets of the same type, then to the whole project, and tells you which it used. With fewer than 3 finished tickets it says there isn't enough history yet rather than guess.</p>
+
+<h2>3. Measure them in working days</h2>
+<p>For each match: working days (Monday to Friday) from created to resolved, and whether it met its own due date.</p>
+<p>If your ticket is already under way, the app only counts past tickets that took at least as long as yours has so far. A ticket open for 4 days can't finish in 2, so faster work stops counting.</p>
+
+<h2>4. Turn them into dates</h2>
+<ul>
+  <li><b>Realistic date</b>: the time 7 in 10 similar tickets finished within (the 70th percentile), counted from the start.</li>
+  <li><b>Safe date</b>: 85 in 100 (the 85th percentile).</li>
+  <li><b>Chance</b>: the share of similar tickets that finished within the working days your due date allows.</li>
+</ul>
+<p>The verdict follows the chance: <b>on track</b> at 70% or more, <b>tight</b> from 40%, otherwise <b>likely to slip</b>. Confidence is high with 20+ matches, medium with 8+, low below that.</p>
+
+<h2>5. The project page</h2>
+<p>The same numbers, added up: the share of due dates met overall and per month, each kind of work (by component, else work type) with its promised versus real median days, and every open ticket with a due date ranked by its chance.</p>
+
+<h2>6. The Rovo agent</h2>
+<p>Due Date Coach calls two actions, one for a ticket (optionally with a date you suggest) and one for a project. They return the numbers above as text with ticket keys, and the agent's instructions forbid stating any number they did not return.</p>
+
+</div></main>
+<footer>
+  <div class="wrap">
+    <a class="logo" href="/"><img src="icon.svg" alt="">Due Date Check</a>
+    <nav>
+      <a href="how-it-works.html">How it works</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

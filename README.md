@@ -1,47 +1,51 @@
-# Forge Hello World
+# Due Date Check
 
-This project contains a Forge app written in Javascript that displays `Hello World!` in a Jira issue panel. 
+**Due dates your team can actually keep.** A Jira app that shows, the moment a due date is set, the realistic one, worked out from how long the same kind of work really took your team.
 
-See [developer.atlassian.com/platform/forge/](https://developer.atlassian.com/platform/forge) for documentation and tutorials explaining Forge.
+Live site: **https://due-date-check.vercel.app** · Built for Atlassian Codegeist 2026 (Business Teams)
 
-## Requirements
+> REQ-201 "Review Globex contract": **Likely to slip.** Due Fri 20 Nov, realistic Thu 26 Nov. 0% of 30 similar tickets finished in time; 7 in 10 took 6 working days; this project met 64% of its due dates (122 of 190).
 
-See [Set up Forge](https://developer.atlassian.com/platform/forge/set-up-forge/) for instructions to get set up.
+## What it does
 
-## Quick start
+- **Ticket panel**: on track, tight or likely to slip; the realistic and safe dates; the past tickets behind every number; one button to use the realistic date (asks first, with Undo).
+- **Project page**: share of due dates met overall and per month, which kinds of work slip and by how much (promised vs real median days), and every open ticket with a due date ranked by its chance.
+- **Rovo agent "Due Date Coach"**: ask "can we finish REQ-12 by Friday?" or "which of our work slips?". It calls two actions and only states numbers they return.
 
-- Install top-level dependencies:
+No machine learning and no estimates: plain counting over the team's own finished tickets. See [how it works](https://due-date-check.vercel.app/how-it-works.html).
+
+## How it is built
+
+- Atlassian Forge, `nodejs24.x`, eligible for **Runs on Atlassian** (no egress; nothing leaves Atlassian).
+- Modules: `jira:issuePanel`, `jira:projectPage` (one Custom UI bundle, Vite + React 18), `rovo:agent` with two `action`s.
+- All Jira reads use `asUser()`, so the app sees only what the viewer can see. Scopes: `read:jira-work`, `write:jira-work` (due date only).
+
 ```
-npm install
-```
-
-- Install dependencies inside of the `static/hello-world` directory:
-```
-npm install
-```
-
-- Modify your app by editing the files in `static/hello-world/src/`.
-
-- Build your app (inside of the `static/hello-world` directory):
-```
-npm run build
-```
-
-- Deploy your app by running:
-```
-forge deploy
-```
-
-- Install your app in an Atlassian site by running:
-```
-forge install
+src/engine/   pure maths, tested without Jira
+  dates.js      working days
+  estimate.js   similar-ticket matching, percentiles, chance, verdict
+  report.js     project report (promise rate, kinds, months, at risk)
+  words.js      plain-text answers for Rovo
+src/jira.js   Jira REST reads/writes
+src/index.js  resolvers + Rovo action handlers
+static/panel/ Custom UI (App.jsx = ticket panel, ProjectPage.jsx, ui.jsx)
+test/         node:test suites
+scripts/make-demo-csv.js   seeded demo data (demo/requests.csv)
+site/         the product site (static HTML)
 ```
 
-### Notes
-- Use the `forge deploy` command when you want to persist code changes.
-- Use the `forge install` command when you want to install the app on a new site.
-- Once the app is installed on a site, the site picks up the new app changes you deploy without needing to rerun the install command.
+## Run it
 
-## Support
+```bash
+npm install && (cd static/panel && npm install && npm run build)
+npm test                                   # 18 engine tests
+forge register                             # once, gives the app your own id
+forge deploy -e development
+forge install --site <your-site>.atlassian.net --product jira -e development
+```
 
-See [Get help](https://developer.atlassian.com/platform/forge/get-help/) for how to get help and provide feedback.
+Demo data: `node scripts/make-demo-csv.js` writes `demo/requests.csv` (202 requests across Legal, Design, Content, Web and Events with backdated dates). Import it with Jira's CSV importer (date format `yyyy-MM-dd HH:mm`).
+
+## License
+
+MIT
